@@ -1,0 +1,29 @@
+{
+    "name": "instinct/types-autoboxing",
+    "description": "Wrapping primitive types into objects automatically",
+    "homepage": "https://github.com/alquerci/php-types-autoboxing/",
+    "type": "library",
+    "keywords": ["types", "autoboxing"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexandre Quercia",
+            "email": "alquerci@email.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/alquerci/php-types-autoboxing/issues"
+    },
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": { "Instinct\\Component\\TypeAutoBoxing": "" }
+    },
+    "target-dir": "Instinct/Component/TypeAutoBoxing",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
