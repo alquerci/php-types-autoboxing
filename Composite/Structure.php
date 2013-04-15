@@ -70,13 +70,12 @@ abstract class Structure extends Storage
         foreach ($properties as $property) {
             $name = $property->getName();
             if (! $this->$name instanceof AutoBoxType) {
-                $message = ""
-                . get_called_class()."->".$name." "
-                . "property must point to an instance of "
-                . "Instinct\\Component\\TypeAutoBoxing\\AutoBoxType"
-                ;
-
-                throw new \LogicException($message, E_PARSE);
+                throw new \LogicException(sprintf(
+                    'The "%s->%s" property must be an instance of "%s".',
+                    get_called_class(),
+                    $name,
+                    'Instinct\\Component\\TypeAutoBoxing\\AutoBoxType'
+                ));
             }
         }
 

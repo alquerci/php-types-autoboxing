@@ -214,9 +214,13 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
     {
         if (is_object($position)) {
             if (method_exists($position, "__toString")) {
-                $position = (int) $position->__toString();
+                $position = (string) $position;
             } else {
-                throw new \OutOfBoundsException();
+                throw new \OutOfBoundsException(sprintf(
+                    'The class "%s" must define "__toString" method '.
+                    'to be a valid seekable position.',
+                    get_class($position)
+                ));
             }
         }
 
@@ -228,7 +232,10 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
                 $this->next();
             }
         } else {
-            throw new \OutOfBoundsException();
+            throw new \OutOfBoundsException(sprintf(
+                'The position "%d" is not seekable.',
+                $position
+            ));
         }
     }
 
@@ -265,7 +272,10 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
         if($child instanceof \RecursiveIterator){
             return $child;
         }else{
-            throw new \LogicException('The current entry does not contain a RecursiveIterator');
+            throw new \LogicException(sprintf(
+                'The current entry "%s" does not contain a RecursiveIterator.',
+                $this->key()
+            ));
         }
     }
 

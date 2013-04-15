@@ -36,7 +36,13 @@ abstract class AutoBoxType extends Type
     final static public function create(&$pointer, $value = NULL)
     {
         if ($pointer !== null) {
-            throw new \LogicException('Trying to redefine a pointer.');
+            throw new \LogicException(sprintf(
+                'The identifier of type "%s" is defined more than once. '.
+                'The first argument of "%s::%s()" must be null or undefined.',
+                gettype($pointer),
+                get_called_class(),
+                __METHOD__
+            ));
         }
 
         $pointer = new static($value);

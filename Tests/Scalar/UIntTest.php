@@ -28,17 +28,17 @@ class UIntTest extends TypeTestCase
             array(1, 1),
             array(123, 123),
             array(-123, 0),
-            array(array(), new \UnexpectedValueException('array could not be converted to Instinct\Component\TypeAutoBoxing\Scalar\UInt.')),
-            array(array("dfd"), new \UnexpectedValueException('array could not be converted to Instinct\Component\TypeAutoBoxing\Scalar\UInt.')),
+            array(array(), new \UnexpectedValueException($this->formatSetMethodExceptionMessage('array'))),
+            array(array("dfd"), new \UnexpectedValueException($this->formatSetMethodExceptionMessage('array'))),
             array(0.0, 0),
             array(0.123, 0),
             array("dtgg", 0),
             array("10dtgg", 10),
             array("0", 0),
-            array(new TestObject(), new \UnexpectedValueException('object could not be converted to Instinct\Component\TypeAutoBoxing\Scalar\UInt.')),
-            array(new \SimpleXMLElement("<a></a>"), new \UnexpectedValueException('object could not be converted to Instinct\Component\TypeAutoBoxing\Scalar\UInt.')),
-            array(new \SimpleXMLElement("<a>true</a>"),new \UnexpectedValueException('object could not be converted to Instinct\Component\TypeAutoBoxing\Scalar\UInt.')),
-            array(STDOUT, new \UnexpectedValueException('resource could not be converted to Instinct\Component\TypeAutoBoxing\Scalar\UInt.')),
+            array(new TestObject(), new \UnexpectedValueException($this->formatSetMethodExceptionMessage('object'))),
+            array(new \SimpleXMLElement("<a></a>"), new \UnexpectedValueException($this->formatSetMethodExceptionMessage('object'))),
+            array(new \SimpleXMLElement("<a>true</a>"),new \UnexpectedValueException($this->formatSetMethodExceptionMessage('object'))),
+            array(STDOUT, new \UnexpectedValueException($this->formatSetMethodExceptionMessage('resource'))),
         );
     }
 }

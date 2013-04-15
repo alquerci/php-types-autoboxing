@@ -48,7 +48,11 @@ abstract class Enum extends Scalar
             return new static($constList[$method]);
         }
 
-        throw new \BadMethodCallException();
+        throw new \BadMethodCallException(sprintf(
+            'Refers to an undefined static method "%s::%s()".',
+            get_called_class(),
+            $method
+        ));
     }
 
     /**
@@ -120,11 +124,12 @@ abstract class Enum extends Scalar
 
         foreach ($constList as $const) {
             if (!is_string($const)) {
-                $callClass = get_called_class();
-                $message = "All constants of Class ".$callClass." must be ".
-                           "strings. For use it into a switch and more.";
-
-                throw new \LogicException($message);
+                throw new \LogicException(sprintf(
+                    'The constant "%s" of class "%s" must be a string. '.
+                    'For use it into a switch and more.',
+                    $const,
+                    get_called_class()
+                ));
             }
         }
 

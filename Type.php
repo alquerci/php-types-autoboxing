@@ -56,7 +56,11 @@ abstract class Type
         }
 
         if (!$isValid) {
-            throw new \UnexpectedValueException(sprintf('%s could not be converted to %s.', gettype($value), get_called_class()));
+            throw new \UnexpectedValueException(sprintf(
+                'The value of type "%s" could not be converted to "%s".',
+                gettype($value),
+                get_called_class()
+            ));
         }
     }
 

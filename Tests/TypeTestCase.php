@@ -19,7 +19,7 @@ class TypeTestCase extends \PHPUnit_Framework_TestCase
      */
     public function testSetAndGet($value, $expected)
     {
-        $class = str_replace(array('Tests\\', 'Test'), '', get_called_class());
+        $class = $this->getTestedClass();
 
         if ($expected instanceof \Exception) {
             $this->setExpectedException(get_class($expected), $expected->getMessage());
@@ -28,6 +28,24 @@ class TypeTestCase extends \PHPUnit_Framework_TestCase
         $object = new $class($value);
 
         $this->assertSame($expected, $object->get());
+    }
+
+    protected function formatSetMethodExceptionMessage($type, $class = null)
+    {
+        if ($class === null) {
+            $class = $this->getTestedClass();
+        }
+
+        return sprintf(
+            'The value of type "%s" could not be converted to "%s".',
+            $type,
+            $class
+        );
+    }
+
+    private function getTestedClass()
+    {
+        return str_replace(array('Tests\\', 'Test'), '', get_called_class());
     }
 }
 
