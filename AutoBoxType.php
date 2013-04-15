@@ -38,14 +38,17 @@ abstract class AutoBoxType extends Type
         if ($pointer !== null) {
             throw new \LogicException(sprintf(
                 'The identifier of type "%s" is defined more than once. '.
-                'The first argument of "%s::%s()" must be null or undefined.',
+                'The first argument of "%s()" must be null or undefined.',
                 gettype($pointer),
-                get_called_class(),
                 __METHOD__
             ));
         }
 
-        $pointer = new static($value);
+        if ($value instanceof static) {
+            $pointer = clone $value;
+        } else {
+            $pointer = new static($value);
+        }
 
         // Allocate the pointer.
         $pointer->memoryId = Memory::alloc($pointer);
@@ -58,16 +61,11 @@ abstract class AutoBoxType extends Type
         }
 
         $pointer = &Memory::getReferenceById($this->memoryId);
+        $value = $pointer;
 
-        if ($pointer !== $this && $pointer !== null) {
-            if ($pointer instanceof static) {
-                $pointer = clone $pointer;
-            } else {
-                $pointer = new static($pointer);
-            }
-
-            // Relocate the pointer.
-            $pointer->memoryId = Memory::alloc($pointer);
+        if ($value !== $this && $value !== null) {
+            $pointer = null;
+            self::create($pointer, $value);
         }
 
         // Removing the obsolete pointer.
