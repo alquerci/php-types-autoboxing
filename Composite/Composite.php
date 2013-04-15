@@ -26,23 +26,6 @@ abstract class Composite extends AutoBoxType
         return get_called_class();
     }
 
-    final public function __clone()
-    {
-        $array = $this->get();
-        $this->clear();
-        $clone = array();
-
-        foreach ($array as $key => $value) {
-            if (is_object($value)) {
-                $clone[$key] = clone $value;
-            } else {
-                $clone[$key] = $value;
-            }
-        }
-
-        $this->fromArray($clone);
-    }
-
     /**
      * @param object $value
      *
