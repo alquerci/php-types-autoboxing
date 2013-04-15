@@ -63,10 +63,6 @@ abstract class AutoBoxType extends Type
             if ($pointer instanceof static) {
                 $pointer = clone $pointer;
             } else {
-                if (is_object($pointer)) {
-                    $pointer = clone $pointer;
-                }
-
                 $pointer = new static($pointer);
             }
 
