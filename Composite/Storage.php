@@ -130,7 +130,7 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
             }
         }
 
-        if($this->offsetExists($index) !== false) {
+        if ($this->offsetExists($index) !== false) {
             return $this->array[$index];
         }
 
@@ -160,7 +160,7 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
                 }
             }
 
-            if($this->offsetExists($index) !== false) {
+            if ($this->offsetExists($index) !== false) {
                 $this->array[$index] = $value;
             } else {
                 $this->size++;
@@ -184,7 +184,7 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
             }
         }
 
-        if($this->offsetExists($index) !== false) {
+        if ($this->offsetExists($index) !== false) {
             $this->size--;
             $this->array[$index] = null;
         }
@@ -226,7 +226,7 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
 
         $position = (int) $position;
 
-        if($position < $this->size) {
+        if ($position < $this->size) {
             $this->rewind();
             for ($i = 0 ; $i < $position ; $i++) {
                 $this->next();
@@ -251,9 +251,9 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
     {
         $child = $this->current();
 
-        if($child instanceof \RecursiveIterator){
+        if ($child instanceof \RecursiveIterator) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -269,9 +269,9 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
     {
         $child = $this->current();
 
-        if($child instanceof \RecursiveIterator){
+        if ($child instanceof \RecursiveIterator) {
             return $child;
-        }else{
+        } else {
             throw new \LogicException(sprintf(
                 'The current entry "%s" does not contain a RecursiveIterator.',
                 $this->key()

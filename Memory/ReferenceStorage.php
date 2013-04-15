@@ -80,7 +80,7 @@ class ReferenceStorage
 
             do {
                 $id++;
-            } while(isset($this->storage[$id]) === false);
+            } while (isset($this->storage[$id]) === false);
         }
 
         return $id;

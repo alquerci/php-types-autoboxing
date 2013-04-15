@@ -82,7 +82,7 @@ class GarbageCollector
 
         while (list(,$address) = each($keys)) {
             if (isset(self::$storages[$id][$address])) {
-                if(self::refCount(self::$storages[$id][$address]) === 0) {
+                if (self::refCount(self::$storages[$id][$address]) === 0) {
                     // destruct the object
                     unset(self::$storages[$id][$address]);
                 }

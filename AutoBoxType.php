@@ -33,7 +33,7 @@ abstract class AutoBoxType extends Type
      *
      * @throws \LogicException When trying to redefine a pointer.
      */
-    final static public function create(&$pointer, $value = NULL)
+    final static public function create(&$pointer, $value = null)
     {
         if ($pointer !== null) {
             throw new \LogicException(sprintf(

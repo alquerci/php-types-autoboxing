@@ -149,5 +149,4 @@ class Bool extends Enum
 
         return true;
     }
-
 }

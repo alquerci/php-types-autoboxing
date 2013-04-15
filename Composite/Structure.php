@@ -43,7 +43,7 @@ abstract class Structure extends Storage
         $static = new \ReflectionClass(get_called_class());
         $properties = $static->getProperties(\ReflectionProperty::IS_PUBLIC);
 
-        foreach($properties as $property) {
+        foreach ($properties as $property) {
             $name = $property->getName();
             $array[$name] = $this->$name->get();
         }
@@ -59,7 +59,7 @@ abstract class Structure extends Storage
         $callClass = get_called_class();
         $this->register();
 
-        if(in_array($callClass, self::$validClass)) {
+        if (in_array($callClass, self::$validClass)) {
             return;
         }
 
@@ -69,7 +69,7 @@ abstract class Structure extends Storage
 
         foreach ($properties as $property) {
             $name = $property->getName();
-            if (! $this->$name instanceof AutoBoxType) {
+            if (!$this->$name instanceof AutoBoxType) {
                 throw new \LogicException(sprintf(
                     'The "%s->%s" property must be an instance of "%s".',
                     get_called_class(),
@@ -101,5 +101,4 @@ abstract class Structure extends Storage
 
         return true;
     }
-
 }

@@ -42,4 +42,3 @@ class Resource extends AutoBoxType
         return true;
     }
 }
-

@@ -116,7 +116,7 @@ abstract class Enum extends Scalar
         $refClass = new \ReflectionClass($callClass);
         $constList = $refClass->getConstants();
 
-        if(in_array($callClass, self::$validClass)) {
+        if (in_array($callClass, self::$validClass)) {
             self::$constants = $constList;
 
             return $constList;
