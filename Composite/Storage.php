@@ -385,8 +385,6 @@ class Storage extends Composite implements \SeekableIterator, \RecursiveIterator
             $value = array($value);
         }
 
-        $this->set($value);
-
-        return true;
+        return $this->fromArray($value);
     }
 }
