@@ -13,6 +13,8 @@ namespace Instinct\Component\TypeAutoBoxing\Composite;
  * It used to enforce strong typing of the array type.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 class Storage extends Composite implements \SeekableIterator, \RecursiveIterator, \ArrayAccess, \Countable
 {

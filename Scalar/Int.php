@@ -14,6 +14,8 @@ namespace Instinct\Component\TypeAutoBoxing\Scalar;
  * It used to enforce strong typing of the integer type.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 class Int extends Scalar
 {

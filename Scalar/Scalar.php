@@ -16,6 +16,8 @@ use Instinct\Component\TypeAutoBoxing\AutoBoxType;
  * It used to enforce strong typing of the scalar type.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 abstract class Scalar extends AutoBoxType implements ConvertibleInterface
 {

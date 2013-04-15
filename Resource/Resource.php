@@ -15,6 +15,8 @@ use Instinct\Component\TypeAutoBoxing\AutoBoxType;
  * It used to enforce strong typing of the resource type.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 class Resource extends AutoBoxType
 {

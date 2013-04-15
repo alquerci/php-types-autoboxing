@@ -13,29 +13,36 @@ namespace Instinct\Component\TypeAutoBoxing\Memory;
 
 /**
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
-class ReferenceStorage
+class ReferenceCollection
 {
     /**
      * @var array
      */
-    private $storage;
+    private $collection;
 
+    /**
+     * @api
+     */
     public function __construct()
     {
-        $this->storage = array();
+        $this->collection = array();
     }
 
     /**
      * @param mixed $value
      *
      * @return integer|string
+     *
+     * @api
      */
     public function add(&$value)
     {
         $id = $this->generateIdFor($value);
 
-        $this->storage[$id] = &$value;
+        $this->collection[$id] = &$value;
 
         return $id;
     }
@@ -44,26 +51,32 @@ class ReferenceStorage
      * @param integer|string $id
      *
      * @return mixed
+     *
+     * @api
      */
     public function &get($id)
     {
-        return $this->storage[$id];
+        return $this->collection[$id];
     }
 
     /**
      * @param integer|string $id
+     *
+     * @api
      */
     public function remove($id)
     {
-        unset($this->storage[$id]);
+        unset($this->collection[$id]);
     }
 
     /**
      * @return array
+     *
+     * @api
      */
     public function &all()
     {
-        return $this->storage;
+        return $this->collection;
     }
 
     /**
@@ -80,7 +93,7 @@ class ReferenceStorage
 
             do {
                 $id++;
-            } while (isset($this->storage[$id]) === false);
+            } while (isset($this->collection[$id]) === false);
         }
 
         return $id;

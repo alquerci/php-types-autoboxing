@@ -13,6 +13,8 @@ namespace Instinct\Component\TypeAutoBoxing;
  * Extend it to enforce strong typing.
  *
  * @author alexandre.quercia
+ *
+ * @api
  */
 abstract class Type
 {
@@ -20,6 +22,8 @@ abstract class Type
      * @param mixed $value [Optional]
      *
      * @throws \UnexpectedValueException
+     *
+     * @api
      */
     public function __construct($value = null)
     {
@@ -30,6 +34,8 @@ abstract class Type
      * @param mixed $value
      *
      * @throws \UnexpectedValueException
+     *
+     * @api
      */
     final public function set($value)
     {
@@ -68,6 +74,8 @@ abstract class Type
      * @param string $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromString($value)
     {
@@ -78,6 +86,8 @@ abstract class Type
      * @param object $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromObject($value)
     {
@@ -88,6 +98,8 @@ abstract class Type
      * @param boolean $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromBool($value)
     {
@@ -98,6 +110,8 @@ abstract class Type
      * @param integer $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromInt($value)
     {
@@ -108,6 +122,8 @@ abstract class Type
      * @param double $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromDouble($value)
     {
@@ -118,6 +134,8 @@ abstract class Type
      * @param array $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromArray($value)
     {
@@ -128,6 +146,8 @@ abstract class Type
      * @param resource $value
      *
      * @return boolean
+     *
+     * @api
      */
     protected function fromResource($value)
     {
@@ -138,11 +158,15 @@ abstract class Type
      * Returns a php native representation
      *
      * @return mixed
+     *
+     * @api
      */
     abstract public function get();
 
     /**
      * Clear the value.
+     *
+     * @api
      */
     abstract protected function clear();
 }

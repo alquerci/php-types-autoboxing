@@ -14,6 +14,8 @@ namespace Instinct\Component\TypeAutoBoxing\Scalar;
  * It used to enforce strong typing of the enum type.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 abstract class Enum extends Scalar
 {
@@ -39,6 +41,8 @@ abstract class Enum extends Scalar
      * @return Enum
      *
      * @throws \BadMethodCallException
+     *
+     * @api
      */
     static public function __callStatic($method, $args)
     {
@@ -105,6 +109,8 @@ abstract class Enum extends Scalar
      * @return string[]
      *
      * @throws \LogicException
+     *
+     * @api
      */
     static public function getConstList()
     {

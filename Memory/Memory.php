@@ -11,15 +11,18 @@ namespace Instinct\Component\TypeAutoBoxing\Memory;
 
 /**
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 class Memory
 {
     /**
-     * @var ReferenceStorage
+     * @var ReferenceCollection
      */
-    private static $storage;
+    private static $collection;
 
     /**
+     * @api
      */
     private function __construct()
     {
@@ -29,42 +32,51 @@ class Memory
      * @param mixed $value
      *
      * @return integer|string
+     *
+     * @api
      */
     public static function alloc(&$value)
     {
         GarbageCollector::collect();
 
-        return self::getStorage()->add($value);
+        return self::getCollection()->add($value);
     }
 
     /**
      * @param interger|string $id
      *
      * @return &mixed
+     *
+     * @api
      */
-    public static function &getReferenceById($id)
+    public static function &get($id)
     {
-        return self::getStorage()->get($id);
-    }
-
-    public static function free($id)
-    {
-        self::getStorage()->remove($id);
+        return self::getCollection()->get($id);
     }
 
     /**
-     * @return ReferenceStorage
+     * @param int|string $id
+     *
+     * @api
      */
-    private static function getStorage()
+    public static function free($id)
     {
-        if (self::$storage === null) {
-            self::$storage = new ReferenceStorage();
+        self::getCollection()->remove($id);
+    }
+
+    /**
+     * @return ReferenceCollection
+     */
+    private static function getCollection()
+    {
+        if (self::$collection === null) {
+            self::$collection = new ReferenceCollection();
 
             // Register to the garbage collector
-            $storage = &self::$storage->all();
+            $storage = &self::$collection->all();
             GarbageCollector::register($storage);
         }
 
-        return self::$storage;
+        return self::$collection;
     }
 }

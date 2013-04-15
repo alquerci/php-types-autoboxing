@@ -26,7 +26,6 @@ abstract class Structure extends Storage
      * - Type::pnew($this->property1)
      * - Type::pnew($this->property2)
      * - ...
-     *
      */
     abstract protected function register();
 

@@ -13,6 +13,8 @@ namespace Instinct\Component\TypeAutoBoxing\Scalar;
  * It used to enforce strong typing of the string type.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 class String extends Scalar
 {

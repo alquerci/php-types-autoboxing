@@ -15,6 +15,8 @@ use Instinct\Component\TypeAutoBoxing\Memory\Memory;
  * Extend it to enforce strong typing.
  *
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 abstract class AutoBoxType extends Type
 {
@@ -32,6 +34,8 @@ abstract class AutoBoxType extends Type
      * @param mixed $value [Optional]
      *
      * @throws \LogicException When trying to redefine a pointer.
+     *
+     * @api
      */
     final static public function create(&$pointer, $value = null)
     {
@@ -54,13 +58,16 @@ abstract class AutoBoxType extends Type
         $pointer->memoryId = Memory::alloc($pointer);
     }
 
+    /**
+     * @api
+     */
     final public function __destruct()
     {
         if ($this->memoryId === null) {
             return;
         }
 
-        $pointer = &Memory::getReferenceById($this->memoryId);
+        $pointer = &Memory::get($this->memoryId);
         $value = $pointer;
 
         if ($value !== $this && $value !== null) {

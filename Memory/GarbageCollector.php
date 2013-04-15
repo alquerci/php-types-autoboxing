@@ -11,6 +11,8 @@ namespace Instinct\Component\TypeAutoBoxing\Memory;
 
 /**
  * @author Alexandre Quercia <alquerci@email.com>
+ *
+ * @api
  */
 class GarbageCollector
 {
@@ -32,21 +34,33 @@ class GarbageCollector
     private static $enable = true;
 
     /**
+     * @api
      */
     private function __construct()
     {
     }
 
+    /**
+     * @api
+     */
     public static function enable()
     {
         self::$enable = true;
     }
 
+    /**
+     * @api
+     */
     public static function disable()
     {
         self::$enable = false;
     }
 
+    /**
+     * @param array $storage
+     *
+     * @api
+     */
     public static function register(array &$storage)
     {
         self::$storages[] = &$storage;
@@ -54,6 +68,8 @@ class GarbageCollector
 
     /**
      * Forces collection of any existing garbage cycles
+     *
+     * @api
      */
     public static function collect()
     {
