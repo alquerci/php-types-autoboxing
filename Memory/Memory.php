@@ -47,8 +47,10 @@ class Memory
                 self::$registered = true;
             }
 
-            GarbageCollector::collect();
-            self::$entriesCount = count(self::$collection);
+            if (GarbageCollector::enabled()) {
+                GarbageCollector::collect();
+                self::$entriesCount = count(self::$collection);
+            }
         }
 
         if (PHP_INT_MAX === self::$lastAddress) {
