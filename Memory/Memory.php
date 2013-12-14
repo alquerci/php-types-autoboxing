@@ -16,6 +16,8 @@ namespace Instinct\Component\TypeAutoBoxing\Memory;
  */
 class Memory
 {
+    private static $entriesCount = 0;
+
     /**
      * @var ReferenceCollection
      */
@@ -37,7 +39,12 @@ class Memory
      */
     public static function alloc(&$value)
     {
-        GarbageCollector::collect();
+        if (self::$entriesCount % GarbageCollector::CYCLES_MAX === 0) {
+            GarbageCollector::collect();
+            self::$entriesCount = count(self::getCollection()->all());
+        }
+
+        ++self::$entriesCount;
 
         return self::getCollection()->add($value);
     }
@@ -62,6 +69,8 @@ class Memory
     public static function free($id)
     {
         self::getCollection()->remove($id);
+
+        --self::$entriesCount;
     }
 
     /**
