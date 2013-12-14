@@ -17,11 +17,13 @@ namespace Instinct\Component\TypeAutoBoxing\Memory;
 class Memory
 {
     private static $entriesCount = 0;
+    private static $lastAddress = 0;
+    private static $registered = false;
 
     /**
-     * @var ReferenceCollection
+     * @var array
      */
-    private static $collection;
+    private static $collection = array();
 
     /**
      * @api
@@ -40,13 +42,27 @@ class Memory
     public static function alloc(&$value)
     {
         if (self::$entriesCount % GarbageCollector::CYCLES_MAX === 0) {
+            if (false === self::$registered) {
+                GarbageCollector::register(self::$collection);
+                self::$registered = true;
+            }
+
             GarbageCollector::collect();
-            self::$entriesCount = count(self::getCollection()->all());
+            self::$entriesCount = count(self::$collection);
         }
 
+        if (PHP_INT_MAX === self::$lastAddress) {
+            do {
+                $address = hash('sha1', uniqid(mt_rand(), true));
+            } while (isset(self::$collection[$address]) || array_key_exists($address, self::$collection));
+        } else {
+            $address = ++self::$lastAddress;
+        }
+
+        self::$collection[$address] = &$value;
         ++self::$entriesCount;
 
-        return self::getCollection()->add($value);
+        return $address;
     }
 
     /**
@@ -58,7 +74,7 @@ class Memory
      */
     public static function &get($id)
     {
-        return self::getCollection()->get($id);
+        return self::$collection[$id];
     }
 
     /**
@@ -68,24 +84,12 @@ class Memory
      */
     public static function free($id)
     {
-        self::getCollection()->remove($id);
-
-        --self::$entriesCount;
-    }
-
-    /**
-     * @return ReferenceCollection
-     */
-    private static function getCollection()
-    {
-        if (self::$collection === null) {
-            self::$collection = new ReferenceCollection();
-
-            // Register to the garbage collector
-            $storage = &self::$collection->all();
-            GarbageCollector::register($storage);
+        // This method is no-op if the id is unknown
+        if (false === (isset(self::$collection[$id]) || array_key_exists($id, self::$collection))) {
+            return;
         }
 
-        return self::$collection;
+        unset(self::$collection[$id]);
+        --self::$entriesCount;
     }
 }
