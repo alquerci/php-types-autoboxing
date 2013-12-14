@@ -24,9 +24,9 @@ class GarbageCollector
     private static $storages = array();
 
     /**
-     * @var integer
+     * @var Boolean
      */
-    private static $enable = true;
+    private static $enabled = true;
 
     /**
      * @api
@@ -36,19 +36,35 @@ class GarbageCollector
     }
 
     /**
+     * Activates the garbage collector
+     *
      * @api
      */
     public static function enable()
     {
-        self::$enable = true;
+        self::$enabled = true;
     }
 
     /**
+     * Deactivates the garbage collector
+     *
      * @api
      */
     public static function disable()
     {
-        self::$enable = false;
+        self::$enabled = false;
+    }
+
+    /**
+     * Cheks the status of the garbage collector
+     *
+     * @return Boolean TRUE if the garbage collector is enabled, FALSE otherwise
+     *
+     * @api
+     */
+    public static function enabled()
+    {
+        return self::$enabled;
     }
 
     /**
