@@ -40,5 +40,13 @@ class GarbageCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function testrefCount()
     {
+        $r = new \ReflectionClass('Instinct\Component\TypeAutoBoxing\Memory\GarbageCollector');
+        $m = $r->getMethod('refcount');
+        if (!$m instanceof \ReflectionMethod) {
+            return;
+        }
+        $m->setAccessible(true);
+
+        $this->assertSame(1, $m->invokeArgs(null, array(&$this)));
     }
 }

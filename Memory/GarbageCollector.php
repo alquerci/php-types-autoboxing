@@ -119,9 +119,15 @@ class GarbageCollector
      */
     private static function refCount(&$var)
     {
-        ob_start();
+        ob_start(function ($str) use (&$output) {
+            if (null === $output) {
+                $output = $str;
+            }
+
+            return '';
+        }, 150000);
         debug_zval_dump(array(&$var));
-        $output = ob_get_clean();
+        ob_end_flush();
 
         $sub = substr($output, 24);
         $pattern = '/^.+?refcount\((\d+)\).+$/ms';
