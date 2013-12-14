@@ -26,11 +26,6 @@ class GarbageCollector
     /**
      * @var integer
      */
-    private static $cycleCount = 0;
-
-    /**
-     * @var integer
-     */
     private static $enable = true;
 
     /**
@@ -69,41 +64,44 @@ class GarbageCollector
     /**
      * Forces collection of any existing garbage cycles
      *
+     * @return integer The number of collected cycles
+     *
      * @api
      */
     public static function collect()
     {
-        if (!self::$enable) {
-            return;
+        $collectedNum = 0;
+
+        foreach (array_keys(self::$storages) as $id) {
+            $collectedNum += self::doCollect($id);
         }
 
-        self::$cycleCount++;
-
-        if (self::CYCLES_MAX <= self::$cycleCount) {
-            self::$cycleCount = 0;
-
-            foreach (array_keys(self::$storages) as $id) {
-                self::doCollect($id);
-            }
-        }
+        return $collectedNum;
     }
 
     /**
      * Forces collection of any existing garbage cycles
+     *
+     * @return integer The number of collected cycles
      */
     private static function doCollect($id)
     {
         $keys = array_keys(self::$storages[$id]);
         reset($keys);
 
+        $collectedNum = 0;
+
         while (list(,$address) = each($keys)) {
             if (isset(self::$storages[$id][$address])) {
                 if (self::refCount(self::$storages[$id][$address]) === 0) {
                     // destruct the object
                     unset(self::$storages[$id][$address]);
+                    ++$collectedNum;
                 }
             }
         }
+
+        return $collectedNum;
     }
 
     /**

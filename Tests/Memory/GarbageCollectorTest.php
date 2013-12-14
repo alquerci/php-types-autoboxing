@@ -9,6 +9,8 @@
 
 namespace Instinct\Component\TypeAutoBoxing\Tests\Memory;
 
+use Instinct\Component\TypeAutoBoxing\Memory\GarbageCollector;
+
 /**
  * @author Alexandre Quercia <alquerci@email.com>
  */
@@ -32,6 +34,16 @@ class GarbageCollectorTest extends \PHPUnit_Framework_TestCase
 
     public function testcollect()
     {
+        GarbageCollector::collect();
+
+        $a = array();
+        $coll = array(&$a);
+        GarbageCollector::register($coll);
+
+        $a['self'] = $a;
+        unset($a);
+
+        $this->assertSame(1, GarbageCollector::collect());
     }
 
     public function testdoCollect()
