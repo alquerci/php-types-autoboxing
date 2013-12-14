@@ -9,30 +9,40 @@
 
 namespace Instinct\Component\TypeAutoBoxing\Tests\Memory;
 
+use Instinct\Component\TypeAutoBoxing\Memory\Memory;
+
 /**
  * @author Alexandre Quercia <alquerci@email.com>
  */
 class MemoryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     */
-    public function test__construct()
-    {
-    }
-
     public function testalloc()
     {
+        $value = new \stdClass();
+
+        $address = Memory::alloc($value);
+
+        $value = null;
+        $this->assertNull(Memory::get($address));
     }
 
-    public function testgetReferenceById()
+    public function testget()
     {
+        $value = new \stdClass();
+
+        $address = Memory::alloc($value);
+
+        $this->assertSame($value, Memory::get($address));
     }
 
     public function testfree()
     {
-    }
+        $value = new \stdClass();
 
-    public function testgetStorage()
-    {
+        $address = Memory::alloc($value);
+        Memory::free($address);
+
+        $this->assertNull(Memory::get($address));
+        $this->assertInstanceOf('stdClass', $value);
     }
 }
