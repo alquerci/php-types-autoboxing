@@ -18,7 +18,7 @@ Using Composer, just add the following configuration to your `composer.json`:
 ``` json
 {
     "require": {
-        "instinct/types-autoboxing": "1.0.*"
+        "instinct/types-autoboxing": "v1.0.0-BETA2"
     }
 }
 ```
