@@ -9,6 +9,8 @@
 
 namespace Instinct\Component\TypeAutoBoxing\Type;
 
+use Instinct\Component\TypeAutoBoxing\Exception\TypeNotFoundException;
+
 /**
  * @author Alexandre Quercia <alquerci@email.com>
  */
@@ -54,7 +56,19 @@ final class Types
 
         if (!isset(self::$typeObjects[$name])) {
             if (!isset(self::$typeMapping[$name])) {
-                $name = self::VOID;
+                if (!$name) {
+                    throw new TypeNotFoundException($name);
+                }
+
+                $alternatives = array();
+                foreach (array_keys(self::$typeMapping) as $key) {
+                    $lev = levenshtein($name, $key);
+                    if ($lev <= strlen($name) / 3 || false !== strpos($key, $name)) {
+                        $alternatives[] = $key;
+                    }
+                }
+
+                throw new TypeNotFoundException($name, null, $alternatives);
             }
 
             self::$typeObjects[$name] = new self::$typeMapping[$name]();
