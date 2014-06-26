@@ -54,7 +54,7 @@ final class AutoBoxer
         if ($pointer !== null) {
             throw new \LogicException(sprintf(
                 'The identifier of type "%s" is defined more than once. '.
-                'The first argument of "%s::__construct()" must be null or undefined.',
+                'The second argument of "%s::__construct()" must be null or undefined.',
                 gettype($pointer),
                 get_called_class()
             ));
