@@ -28,22 +28,4 @@ final class Void extends Type
     {
         return $initialValue;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function &operator($operator, &$leftValue, $rightValue = null)
-    {
-        switch ($operator) {
-            case '=':
-                $leftValue = $rightValue;
-
-                return $leftValue;
-
-            default:
-                $result = &parent::operator($operator, $leftValue, $rightValue);
-
-                return $result;
-        }
-    }
 }
